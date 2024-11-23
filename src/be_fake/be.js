@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 let customers = []
 function getCustomers() {
   return [...customers]
@@ -74,7 +73,7 @@ const addUser = (newUser) => {
   } else {
     users = [...users, {
       ...newUser,
-      id: uuidv4()
+      id: new Date().getTime()
     }]
   }
 }
@@ -103,7 +102,6 @@ const updateUserById = (id, newUser) => {
     users = newUsers
   }
 }
-
 
 module.exports = {
   login,
