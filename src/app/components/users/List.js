@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import MyDrawer from '../Drawer'
 import UserForm from "@/app/components/users/UserForm"
 import { getUsers } from "@/be_fake/be"
+import dayjs from "dayjs"
+
 function ListUser() {
   const [users, setUsers] = useState([])
 
@@ -52,6 +54,7 @@ function ListUser() {
             <th className='border'>Username</th>
             <th className='border'>Name</th>
             <th className='border'>Email</th>
+            <th className='border'>Created At</th>
             <th className='border'></th>
           </tr>
         </thead>
@@ -61,6 +64,7 @@ function ListUser() {
               <td className='border'>{user.username}</td>
               <td className='border'>{user.name}</td>
               <td className='border'>{user.email}</td>
+              <td className='border'>{dayjs(user.createdAt).format("DD MMM YYYY h:mm a")}</td>
               <td className='border'>
                 <button onClick={() => openNewCustomerForm(user.id)}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

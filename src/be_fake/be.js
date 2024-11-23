@@ -26,6 +26,7 @@ let users = [
     token: "token1",
     name: "nguyen thi thap",
     email: "email1@gmail.com",
+    createdAt: 1732329206922,
   },
   {
     id: "2",
@@ -34,6 +35,7 @@ let users = [
     token: "token2",
     name: "Trung Son",
     email: "email2@gmail.com",
+    createdAt: 1732329206922,
   }
 ]
 
@@ -73,7 +75,8 @@ const addUser = (newUser) => {
   } else {
     users = [...users, {
       ...newUser,
-      id: new Date().getTime()
+      id: new Date().getTime(),
+      createdAt: new Date().getTime()
     }]
   }
 }
