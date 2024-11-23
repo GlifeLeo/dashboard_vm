@@ -4,12 +4,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="flex">
+        <main className="flex">
           <Sidebar />
-          <div className="flex-1 bg-black h-screen">
+          <div className="flex-1 h-screen p-4">
             {children}
           </div>
-        </div>
+        </main>
 
       </body>
     </html>
