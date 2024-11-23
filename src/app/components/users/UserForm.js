@@ -12,6 +12,10 @@ function UserForm({ userId, onClose }) {
     email: "",
     password: "",
   })
+
+  // const [name, setName] = useSate("")
+  // const [age, setAge] = useSate(0)
+
   const { name, username, email, password } = user
   function onSubmit(e) {
     e.preventDefault()
@@ -34,6 +38,7 @@ function UserForm({ userId, onClose }) {
     // onClose
   }
 
+
   return (
     <div className='p-4'>
 
@@ -47,11 +52,14 @@ function UserForm({ userId, onClose }) {
           <label>Username</label>
           <input
             className='border h-10 rounded-lg px-2'
-            name="username" onChange={(e) => setUser({
+            name="username"
+            onChange={(e) => setUser({
               ...user,
               username: e.target.value
-            })} />
+            })}
+          />
         </div>
+
         <div className='flex flex-col mb-3'>
           <label>Password</label>
           <input
