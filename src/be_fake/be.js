@@ -1,5 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
 let customers = []
-
 function getCustomers() {
   return [...customers]
 }
@@ -19,8 +19,9 @@ function addCustomer(customer) {
   return [...customers, customer]
 }
 
-const users = [
+let users = [
   {
+    id: "1",
     username: "user1",
     password: "123456", // 64578365hkj@372537248p435 hash
     token: "token1",
@@ -28,10 +29,11 @@ const users = [
     email: "email1@gmail.com",
   },
   {
+    id: "2",
     username: "user2",
     password: "123456",// 64578365hkj@372537248p435 hash
     token: "token2",
-    name: "Tan Cang",
+    name: "Trung Son",
     email: "email2@gmail.com",
   }
 ]
@@ -65,11 +67,54 @@ function getUserByToken(token) {
   }
 }
 
+const addUser = (newUser) => {
+  const existUser = users.find(u => u.username == newUser.username)
+  if (existUser) {
+    return { success: false, error: newUser.username + " đã tồn tại" }
+  } else {
+    users = [...users, {
+      ...newUser,
+      id: uuidv4()
+    }]
+  }
+}
+const getUserById = (id) => {
+  return users.find(u => u.id === id)
+}
+
+const getUsers = () => {
+  return [...users]
+}
+const deleteUserById = (id) => {
+  users = [...users].filter(u => u.id !== id)
+}
+
+const updateUserById = (id, newUser) => {
+  let newUsers = [...users]
+  const updateIndex = newUsers.findIndex(u => u.id == id)
+  if (updateIndex < 0) {
+    return { success: false, error: "User not found" }
+  }
+  const existUser = newUsers.find(u => u.username == newUser.username && u.id !== id)
+  if (existUser) {
+    return { success: false, error: newUser.username + " đã tồn tại" }
+  } else {
+    newUsers[updateIndex] = newUser
+    users = newUsers
+  }
+}
+
+
 module.exports = {
   login,
   getUserByToken,
   getCustomerById,
   getCustomers,
   deleteCustomerById,
-  addCustomer
+  addCustomer,
+  addUser,
+  getUsers,
+  getUserById,
+  deleteUserById,
+  updateUserById
 }
