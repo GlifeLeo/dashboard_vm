@@ -4,7 +4,6 @@ import MyDrawer from '../Drawer'
 import UserForm from "@/app/components/users/UserForm"
 import { getUsers } from "@/be_fake/be"
 import dayjs from "dayjs"
-
 function ListUser() {
   const [users, setUsers] = useState([])
 

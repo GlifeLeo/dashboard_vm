@@ -78,6 +78,7 @@ const addUser = (newUser) => {
       id: new Date().getTime(),
       createdAt: new Date().getTime()
     }]
+    return { success: true, error: "" }
   }
 }
 const getUserById = (id) => {
@@ -89,6 +90,7 @@ const getUsers = () => {
 }
 const deleteUserById = (id) => {
   users = [...users].filter(u => u.id !== id)
+  return { success: true, error: "" }
 }
 
 const updateUserById = (id, newUser) => {
@@ -103,6 +105,7 @@ const updateUserById = (id, newUser) => {
   } else {
     newUsers[updateIndex] = newUser
     users = newUsers
+    return { success: true, error: "" }
   }
 }
 

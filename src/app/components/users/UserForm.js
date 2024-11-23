@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
+import { addUser } from "@/be_fake/be"
 
 function UserForm({ userId, onClose }) {
 
@@ -10,9 +12,22 @@ function UserForm({ userId, onClose }) {
     email: "",
     password: "",
   })
+  const { name, username, email, password } = user
+  function onSubmit(e) {
+    e.preventDefault()
+    if (!name || !username || !email || !password) {
+      toast(<div className='text-red-600'>
+        Nhập đầy đủ thông tin
+      </div>)
+    }
+    const res = addUser(user)
+    if (res.success) {
 
-  function onSubmit() {
-    console.log(user)
+    } else {
+      toast(<div className='text-red-600'>
+        {res.error}
+      </div>)
+    }
     // call api
     // call success
     //refresh list
@@ -21,6 +36,7 @@ function UserForm({ userId, onClose }) {
 
   return (
     <div className='p-4'>
+
       <div className="flex justify-between mb-6">
         <h3 className='text-2xl'>{userId ? "Edit User" : "New User"}</h3>
         <div onClick={onClose}>x</div>
