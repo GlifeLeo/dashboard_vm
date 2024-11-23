@@ -19,6 +19,7 @@ function MyDrawer({
       onClose={onClose}
       direction={direction}
       className={className}
+      style={{ minWidth: "400px" }}
     >
       {children}
     </Drawer>
