@@ -15,6 +15,8 @@ function ListUser() {
 
   useEffect(() => {
     fetchUsers()
+    // const loadedUsers = getUsers()
+    // setUsers(loadedUsers)
   }, [])
 
   const [isOpenNewCustomerForm, setIsOpenNewCustomerForm] = useState(false)
@@ -38,7 +40,11 @@ function ListUser() {
         open={isOpenNewCustomerForm}
         onClose={closeNewCustomerForm}
       >
-        <UserForm userId={selectedUserId} onClose={closeNewCustomerForm} />
+        <UserForm
+          refetch={fetchUsers}
+          userId={selectedUserId}
+          onClose={closeNewCustomerForm}
+        />
       </MyDrawer>
 
       <div className='flex justify-between items-start'>

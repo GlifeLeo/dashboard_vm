@@ -103,7 +103,10 @@ const updateUserById = (id, newUser) => {
   if (existUser) {
     return { success: false, error: newUser.username + " đã tồn tại" }
   } else {
-    newUsers[updateIndex] = newUser
+    newUsers[updateIndex] = {
+      ...newUsers[updateIndex],
+      ...newUser
+    }
     users = newUsers
     return { success: true, error: "" }
   }

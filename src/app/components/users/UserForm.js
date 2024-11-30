@@ -1,10 +1,11 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-import { addUser } from "@/be_fake/be"
+import { addUser, getUserById, updateUserById } from "@/be_fake/be"
+import Input from '@/app/components/ui/Input';
 
-function UserForm({ userId, onClose }) {
+function UserForm({ userId, onClose, refetch }) {
 
   const [user, setUser] = useState({
     name: "",
@@ -17,16 +18,32 @@ function UserForm({ userId, onClose }) {
   // const [age, setAge] = useSate(0)
 
   const { name, username, email, password } = user
+
+  function handleClose() {
+    setUser({
+      name: "",
+      username: "",
+      email: "",
+      password: "",
+    })
+    onClose()
+  }
+
   function onSubmit(e) {
     e.preventDefault()
     if (!name || !username || !email || !password) {
       toast(<div className='text-red-600'>
         Nhập đầy đủ thông tin
       </div>)
+      return
     }
-    const res = addUser(user)
+    const res = userId ? updateUserById(userId, user) : addUser(user)
     if (res.success) {
-
+      toast(<div className='text-green-600'>
+        {userId ? "Cập nhật thành công" : "Thêm thành công"}
+      </div>)
+      refetch()
+      handleClose()
     } else {
       toast(<div className='text-red-600'>
         {res.error}
@@ -38,6 +55,17 @@ function UserForm({ userId, onClose }) {
     // onClose
   }
 
+  useEffect(() => {
+    if (userId) {
+      const loadedUser = getUserById(userId)
+      setUser({
+        name: loadedUser.name,
+        username: loadedUser.username,
+        email: loadedUser.email,
+        password: loadedUser.password,
+      })
+    }
+  }, [userId])
 
   return (
     <div className='p-4'>
@@ -50,12 +78,12 @@ function UserForm({ userId, onClose }) {
       <form onSubmit={onSubmit}>
         <div className='flex flex-col mb-3'>
           <label>Username</label>
-          <input
-            className='border h-10 rounded-lg px-2'
-            name="username"
-            onChange={(e) => setUser({
+          <Input
+            // className='border-red-500 border'
+            defaultValue={user.username}
+            onChange={(v) => setUser({
               ...user,
-              username: e.target.value
+              username: v
             })}
           />
         </div>
@@ -63,6 +91,7 @@ function UserForm({ userId, onClose }) {
         <div className='flex flex-col mb-3'>
           <label>Password</label>
           <input
+            value={user.password}
             className='border h-10 rounded-lg px-2'
             name="password" onChange={(e) => setUser({
               ...user,
@@ -72,6 +101,7 @@ function UserForm({ userId, onClose }) {
         <div className='flex flex-col mb-3'>
           <label>Name</label>
           <input
+            value={user.name}
             className='border h-10 rounded-lg px-2'
             name="Name" onChange={(e) => setUser({
               ...user,
@@ -81,6 +111,7 @@ function UserForm({ userId, onClose }) {
         <div className='flex flex-col mb-3'>
           <label>Email</label>
           <input
+            value={user.email}
             className='border h-10 rounded-lg px-2'
             name="email" onChange={(e) => setUser({
               ...user,
