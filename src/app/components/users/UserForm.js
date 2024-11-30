@@ -72,7 +72,7 @@ function UserForm({ userId, onClose, refetch }) {
 
       <div className="flex justify-between mb-6">
         <h3 className='text-2xl'>{userId ? "Edit User" : "New User"}</h3>
-        <div onClick={onClose}>x</div>
+        <div onClick={handleClose}>x</div>
 
       </div>
       <form onSubmit={onSubmit}>
