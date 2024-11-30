@@ -112,6 +112,13 @@ const updateUserById = (id, newUser) => {
   }
 }
 
+const getUsersBySearch = (searchString) => {
+  return [...users].filter(u =>
+    u.username.includes(searchString) ||
+    u.name.includes(searchString) ||
+    u.email.includes(searchString))
+}
+
 module.exports = {
   login,
   getUserByToken,
@@ -123,5 +130,6 @@ module.exports = {
   getUsers,
   getUserById,
   deleteUserById,
-  updateUserById
+  updateUserById,
+  getUsersBySearch
 }

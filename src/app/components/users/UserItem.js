@@ -4,8 +4,9 @@ import dayjs from "dayjs"
 import { deleteUserById } from "@/be_fake/be"
 import { toast } from 'react-toastify';
 
-function UserItem({ user, openNewCustomerForm, refetch }) {
+function UserItem(props) {
 
+  const { user, openNewCustomerForm, refetch } = props
   const [showConfirm, setShowConfirm] = useState(false)
 
   function handleDeleteUser() {

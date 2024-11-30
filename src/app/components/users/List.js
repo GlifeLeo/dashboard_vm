@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import MyDrawer from '../Drawer'
 import UserForm from "@/app/components/users/UserForm"
 import UserItem from '@/app/components/users/UserItem'
-
-import { getUsers } from "@/be_fake/be"
+import Input from '../ui/Input'
+import { getUsers, getUsersBySearch } from "@/be_fake/be"
 function ListUser() {
   const [users, setUsers] = useState([])
 
@@ -35,8 +35,16 @@ function ListUser() {
     setIsOpenNewCustomerForm(false)
   }
 
+  const [search, setSearch] = useState("")
+
+  useEffect(() => {
+    const loadedUsers = getUsersBySearch(search)
+    setUsers(loadedUsers)
+  }, [search])
+
   return (
     <div>
+
       <MyDrawer
         open={isOpenNewCustomerForm}
         onClose={closeNewCustomerForm}
@@ -53,6 +61,14 @@ function ListUser() {
           Users
         </h2>
         <button onClick={() => openNewCustomerForm(null)} className='bg-green-700 rounded-lg py-2 px-10 text-white'>New</button>
+      </div>
+      <div className='my-3'>
+        <Input
+          placeholder="search"
+          // className='border-red-500 border'
+          defaultValue={search}
+          onChange={(v) => setSearch(v)}
+        />
       </div>
       <table cellPadding={10} className='border-collapse border w-full'>
         <thead className='text-left bg-gray-500 text-white'>
