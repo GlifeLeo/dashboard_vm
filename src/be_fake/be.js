@@ -118,6 +118,13 @@ const getUsersBySearch = (searchString) => {
     u.name.includes(searchString) ||
     u.email.includes(searchString))
 }
+const sortUsers = (sortBy) => {
+  if (sortBy.by == "name") {
+    return [...users].sort((a, b) => sortBy.type == "desc" ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name)
+    )
+  }
+  return [...users]
+}
 
 module.exports = {
   login,
@@ -131,5 +138,6 @@ module.exports = {
   getUserById,
   deleteUserById,
   updateUserById,
-  getUsersBySearch
+  getUsersBySearch,
+  sortUsers
 }
